@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "Backend Tarefas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "tarefaId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Criar tarefa",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Aprender Express\",\n  \"descricao\": \"Fazer o tutorial\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status é 201', () => pm.response.to.have.status(201));",
+              "const tarefa = pm.response.json();",
+              "pm.collectionVariables.set('tarefaId', tarefa._id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listar tarefas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obter tarefa",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/{{tarefaId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "{{tarefaId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Atualizar tarefa",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/{{tarefaId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "{{tarefaId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"concluida\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Apagar tarefa",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/{{tarefaId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "{{tarefaId}}"
+          ]
+        }
+      }
+    }
+  ]
+}
